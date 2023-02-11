@@ -26,87 +26,12 @@ async function runDemo() {
         baseOptions: {
             modelAssetPath: "https://storage.googleapis.com/mediapipe-tasks/gesture_recognizer/gesture_recognizer.task"
         },
+        numHands: 2,
         runningMode: runningMode,
     });
     demosSection.classList.remove("invisible");
 }
 runDemo();
-/********************************************************************
- // Demo 1: Grab a bunch of images from the page and detection them
- // upon click.
- ********************************************************************/
-// In this demo, we have put all our clickable images in divs with the
-// CSS class 'detectionOnClick'. Lets get all the elements that have
-// this class.
-const imageContainers = document.getElementsByClassName("detectOnClick");
-// Now let's go through all of these and add a click event listener.
-for (let i = 0; i < imageContainers.length; i++) {
-    // Add event listener to the child element whichis the img element.
-    imageContainers[i].children[0].addEventListener("click", handleClick);
-}
-// When an image is clicked, let's detect it and display results!
-async function handleClick(event) {
-    if (!gestureRecognizer) {
-        alert("Please wait for gestureRecognizer to load");
-        return;
-    }
-    if (runningMode === "VIDEO") {
-        runningMode = "IMAGE";
-        await gestureRecognizer.setOptions({ runningMode: runningMode });
-    }
-    // Remove all landmarks drawed before
-    const allCanvas = event.target.parentNode.getElementsByClassName("canvas");
-    for (var i = allCanvas.length - 1; i >= 0; i--) {
-        const n = allCanvas[i];
-        n.parentNode.removeChild(n);
-    }
-    // We can call handLandmarker.detect as many times as we like with
-    // different image data each time. This returns a promise
-    // which we wait to complete and then call a function to
-    // print out the results of the prediction.
-    const results = gestureRecognizer.recognize(event.target);
-    console.log(results);
-    if (results.gestures.length > 0) {
-        const p = event.target.parentNode.childNodes[3];
-        p.setAttribute("class", "info");
-        p.innerText =
-            "GestureRecognizer: " +
-            results.gestures[0][0].categoryName +
-            "\n Confidence: " +
-            Math.round(parseFloat(results.gestures[0][0].score) * 100) +
-            "%";
-        p.style =
-            "left: 0px;" +
-            "top: " +
-            event.target.height +
-            "px; " +
-            "width: " +
-            (event.target.width - 10) +
-            "px;";
-        const canvas = document.createElement("canvas");
-        canvas.setAttribute("class", "canvas");
-        canvas.setAttribute("width", event.target.naturalWidth + "px");
-        canvas.setAttribute("height", event.target.naturalHeight + "px");
-        canvas.style =
-            "left: 0px;" +
-            "top: 0px;" +
-            "width: " +
-            event.target.width +
-            "px;" +
-            "height: " +
-            event.target.height +
-            "px;";
-        event.target.parentNode.appendChild(canvas);
-        const cxt = canvas.getContext("2d");
-        for (const landmarks of results.landmarks) {
-            drawConnectors(cxt, landmarks, HAND_CONNECTIONS, {
-                color: "#00FF00",
-                lineWidth: 5
-            });
-            drawLandmarks(cxt, landmarks, { color: "#FF0000", lineWidth: 1 });
-        }
-    }
-}
 /********************************************************************
  // Demo 2: Continuously grab image from webcam stream and detect it.
  ********************************************************************/
@@ -156,7 +81,7 @@ async function predictWebcam() {
     // Now let's start detecting the stream.
     if (runningMode === "IMAGE") {
         runningMode = "VIDEO";
-        await gestureRecognizer.setOptions({ runningMode: runningMode });
+        await gestureRecognizer.setOptions({ runningMode: runningMode, numHands: 2 });
     }
     let nowInMs = Date.now();
     const results = await gestureRecognizer.recognizeForVideo(video, nowInMs);
