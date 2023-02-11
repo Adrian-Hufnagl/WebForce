@@ -15,8 +15,8 @@ let gestureRecognizer;
 let runningMode = "IMAGE";
 let enableWebcamButton;
 let webcamRunning = false;
-const videoHeight = "720px";
-const videoWidth = "960px";
+const videoHeight = "540px";
+const videoWidth = "720px";
 // Before we can use HandLandmarker class we must wait for it to finish
 // loading. Machine Learning models can be large and take a moment to
 // get everything needed to run.
