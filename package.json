@@ -1,0 +1,20 @@
+{
+  "name": "webforce",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gesture.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "module",
+    "url": "git+https://github.com/Adrian-Hufnagl/WebForce.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Adrian-Hufnagl/WebForce/issues"
+  },
+  "homepage": "https://github.com/Adrian-Hufnagl/WebForce#readme"
+}
