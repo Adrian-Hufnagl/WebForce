@@ -2,11 +2,12 @@
   "type": "commonjs",
   "name": "webforce",
   "version": "1.0.0",
-  "description": "",
+  "description": "MediaPipe Gesture Commands",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron ."
+    "start": "electron .",
+    "build": "electron-builder"
   },
   "repository": {
     "type": "commonjs",
@@ -26,6 +27,14 @@
     "fix-path": "^3.0.0"
   },
   "devDependencies": {
-    "electron": "^23.1.0"
+    "electron": "latest",
+    "electron-builder": "latest"
+  },
+  "build": {
+    "appId": "com.adrian.macforce",
+    "mac": {
+      "category": "public.app-category.productivity",
+        "icon": "assets/icon.icns"
+    }
   }
 }
