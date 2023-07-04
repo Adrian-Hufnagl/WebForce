@@ -51,8 +51,8 @@ else {
 
 function testFunction(event){
     console.log('Test')
-    var itunes = Application('iTunes');
-    itunes.activate();
+    var facetime = Application('FaceTime');
+    facetime.activate();
 }
 // Enable the live webcam view and start detection.
 function enableCam(event) {
