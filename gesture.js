@@ -2,11 +2,11 @@
 const vision = require("@mediapipe/tasks-vision");
 
 const { GestureRecognizer, FilesetResolver } = vision;
+
 const demosSection = document.getElementById("demos");
 let gestureRecognizer;
 let runningMode = "IMAGE";
 let enableWebcamButton;
-let testButton;
 let webcamRunning = false;
 const videoHeight = "540px";
 const videoWidth = "720px";
@@ -26,8 +26,6 @@ async function runDemo() {
 }
 runDemo();
 
-testButton = document.getElementById("testFunctionButton");
-testButton.addEventListener("click", testFunction);
 /********************************************************************
  // Demo 2: Continuously grab image from webcam stream and detect it.
  ********************************************************************/
@@ -49,11 +47,7 @@ else {
     console.warn("getUserMedia() is not supported by your browser");
 }
 
-function testFunction(event){
-    console.log('Test')
-    var facetime = Application('FaceTime');
-    facetime.activate();
-}
+
 // Enable the live webcam view and start detection.
 function enableCam(event) {
     if (!gestureRecognizer) {
