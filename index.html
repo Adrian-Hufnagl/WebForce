@@ -15,7 +15,8 @@ limitations under the License. -->
 <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
-<script type="module" src="gesture.js"></script>
+<script type="module" src="main.js"></script>
+<script type="module" src="test.js"></script>
 <link rel="stylesheet" href="gesture.css">
 
 
@@ -25,6 +26,10 @@ limitations under the License. -->
     <button id="webcamButton" class="mdc-button mdc-button--raised">
       <span class="mdc-button__ripple"></span>
       <span class="mdc-button__label">ENABLE WEBCAM</span>
+    </button>
+    <button id="testFunctionButton" class="mdc-button mdc-button--raised">
+      <span class="mdc-button__ripple"></span>
+      <span class="mdc-button__label">Test New Function</span>
     </button>
     <div style="position: relative;">
       <video id="webcam" autoplay playsinline></video>

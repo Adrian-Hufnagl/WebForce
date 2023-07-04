@@ -1,19 +1,12 @@
-// Copyright 2022 The MediaPipe Authors.
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//      http://www.apache.org/licenses/LICENSE-2.0
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-import vision from "https://cdn.skypack.dev/@mediapipe/tasks-vision@latest";
+
+const vision = require("@mediapipe/tasks-vision");
+
 const { GestureRecognizer, FilesetResolver } = vision;
 const demosSection = document.getElementById("demos");
 let gestureRecognizer;
 let runningMode = "IMAGE";
 let enableWebcamButton;
+let testButton;
 let webcamRunning = false;
 const videoHeight = "540px";
 const videoWidth = "720px";
@@ -32,6 +25,9 @@ async function runDemo() {
     demosSection.classList.remove("invisible");
 }
 runDemo();
+
+testButton = document.getElementById("testFunctionButton");
+testButton.addEventListener("click", testFunction);
 /********************************************************************
  // Demo 2: Continuously grab image from webcam stream and detect it.
  ********************************************************************/
@@ -51,6 +47,12 @@ if (hasGetUserMedia()) {
 }
 else {
     console.warn("getUserMedia() is not supported by your browser");
+}
+
+function testFunction(event){
+    console.log('Test')
+    var itunes = Application('iTunes');
+    itunes.activate();
 }
 // Enable the live webcam view and start detection.
 function enableCam(event) {
@@ -110,6 +112,7 @@ async function predictWebcam() {
             "\n Confidence: " +
             Math.round(parseFloat(results.gestures[0][0].score) * 100) +
             "%";
+        console.log(results.gestures[0][0].categoryName);
     }
     else {
         gestureOutput.style.display = "none";

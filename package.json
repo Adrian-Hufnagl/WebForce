@@ -1,13 +1,15 @@
 {
+  "type": "commonjs",
   "name": "webforce",
   "version": "1.0.0",
   "description": "",
-  "main": "gesture.js",
+  "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
   },
   "repository": {
-    "type": "module",
+    "type": "commonjs",
     "url": "git+https://github.com/Adrian-Hufnagl/WebForce.git"
   },
   "keywords": [],
@@ -16,5 +18,14 @@
   "bugs": {
     "url": "https://github.com/Adrian-Hufnagl/WebForce/issues"
   },
-  "homepage": "https://github.com/Adrian-Hufnagl/WebForce#readme"
+  "homepage": "https://github.com/Adrian-Hufnagl/WebForce#readme",
+  "dependencies": {
+    "@mediapipe/tasks-vision": "^0.10.2-rc2",
+    "esm": "^3.2.25",
+    "fix-esm": "^1.0.1",
+    "fix-path": "^3.0.0"
+  },
+  "devDependencies": {
+    "electron": "^23.1.0"
+  }
 }
