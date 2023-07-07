@@ -97,12 +97,12 @@ async function predictWebcam() {
     leftHandOutput.style.width = videoWidth;
     rightHandOutput.style.display = "block";
     rightHandOutput.style.width = videoWidth;
-    leftHandOutput.style.innerText = "Nicht gefunden";
-    rightHandOutput.style.innerText = "Nicht gefunden";
+    leftHandOutput.innerText = "Nicht gefunden";
+    rightHandOutput.innerText = "Nicht gefunden";
     // Check Handedness and delegate output
     if (results.gestures.length == 1) {
         if(results.handednesses[0][0].categoryName == "Left"){
-            leftHandOutput.innerText =
+            rightHandOutput.innerText =
             "GestureRecognizer: " +
             results.gestures[0][0].categoryName +
             "\n Confidence: " +
@@ -110,7 +110,7 @@ async function predictWebcam() {
             "%";
         }
         if(results.handednesses[0][0].categoryName == "Right"){
-            rightHandOutput.innerText =
+            leftHandOutput.innerText =
             "GestureRecognizer: " +
             results.gestures[0][0].categoryName +
             "\n Confidence: " +
@@ -120,13 +120,13 @@ async function predictWebcam() {
         console.log(results)
     }
     if (results.gestures.length == 2) {
-        leftHandOutput.innerText =
+        rightHandOutput.innerText =
             "GestureRecognizer: " +
             results.gestures[0][0].categoryName +
             "\n Confidence: " +
             Math.round(parseFloat(results.gestures[0][0].score) * 100) +
             "%";
-        rightHandOutput.innerText =
+        leftHandOutput.innerText =
             "GestureRecognizer: " +
             results.gestures[1][0].categoryName +
             "\n Confidence: " +
