@@ -28,7 +28,8 @@ loadVision();
 const video = document.getElementById("webcam");
 const canvasElement = document.getElementById("output_canvas");
 const canvasCtx = canvasElement.getContext("2d");
-const gestureOutput = document.getElementById("gesture_output");
+const leftHandOutput = document.getElementById("gesture-output-left");
+const rightHandOutput = document.getElementById("gesture-output-right");
 // Check if webcam access is supported.
 function hasGetUserMedia() {
     return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
@@ -85,29 +86,59 @@ async function predictWebcam() {
     if (results.landmarks) {
         for (const landmarks of results.landmarks) {
             drawConnectors(canvasCtx, landmarks, HAND_CONNECTIONS, {
-                color: "#00FF00",
+                color: "#aabbcc",
                 lineWidth: 5
             });
-            drawLandmarks(canvasCtx, landmarks, { color: "#FF0000", lineWidth: 2 });
+            drawLandmarks(canvasCtx, landmarks, { color: "#667788", lineWidth: 10 });
         }
     }
     canvasCtx.restore();
-    if (results.gestures.length > 0) {
-        gestureOutput.style.display = "block";
-        gestureOutput.style.width = videoWidth;
-        gestureOutput.innerText =
+    leftHandOutput.style.display = "block";
+    leftHandOutput.style.width = videoWidth;
+    rightHandOutput.style.display = "block";
+    rightHandOutput.style.width = videoWidth;
+    leftHandOutput.style.innerText = "Nicht gefunden";
+    rightHandOutput.style.innerText = "Nicht gefunden";
+    // Check Handedness and delegate output
+    if (results.gestures.length == 1) {
+        if(results.handednesses[0][0].categoryName == "Left"){
+            leftHandOutput.innerText =
             "GestureRecognizer: " +
             results.gestures[0][0].categoryName +
             "\n Confidence: " +
             Math.round(parseFloat(results.gestures[0][0].score) * 100) +
             "%";
-        console.log(results.gestures[0][0].categoryName);
+        }
+        if(results.handednesses[0][0].categoryName == "Right"){
+            rightHandOutput.innerText =
+            "GestureRecognizer: " +
+            results.gestures[0][0].categoryName +
+            "\n Confidence: " +
+            Math.round(parseFloat(results.gestures[0][0].score) * 100) +
+            "%";
+        }
+        console.log(results)
     }
-    else {
-        gestureOutput.style.display = "none";
+    if (results.gestures.length == 2) {
+        leftHandOutput.innerText =
+            "GestureRecognizer: " +
+            results.gestures[0][0].categoryName +
+            "\n Confidence: " +
+            Math.round(parseFloat(results.gestures[0][0].score) * 100) +
+            "%";
+        rightHandOutput.innerText =
+            "GestureRecognizer: " +
+            results.gestures[1][0].categoryName +
+            "\n Confidence: " +
+            Math.round(parseFloat(results.gestures[1][0].score) * 100) +
+            "%";
     }
+
     // Call this function again to keep predicting when the browser is ready.
     if (webcamRunning === true) {
         window.requestAnimationFrame(predictWebcam);
     }
+}
+
+function checkGesture(hand){
 }
