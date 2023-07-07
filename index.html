@@ -21,6 +21,7 @@ limitations under the License. -->
 <link rel="stylesheet" href="gesture.css">
 
 <body>
+<div class="container">
   <section id="btn-section" class="invisible">
     <button id="webcamButton" class="default-btn">
       <span class="mdc-button__label">ENABLE WEBCAM</span>
@@ -31,17 +32,20 @@ limitations under the License. -->
     <button id="testFunctionButton2" class="default-btn">
       <span>Kurzbefehl Test</span>
     </button>
-    
   </section>
+</div>
 
-
-  <div id="liveView" class="videoView">
-
-    <div style="position: relative;">
+<div class="container" style="height: 270px;width:360px;">
+  <div id="liveView" class="video-container">
       <video id="webcam" autoplay playsinline></video>
       <canvas class="output_canvas" id="output_canvas" width="1280" height="720"
         style="position: absolute; left: 0px; top: 0px;"></canvas>
-      <p id='gesture_output' class="output">
-    </div>
   </div>
+</div>
+
+<div class="container">
+  <div class="output-container">
+    <p id='gesture_output' class="output">
+  </div>
+</div>
 </body>
