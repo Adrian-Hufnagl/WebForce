@@ -20,22 +20,28 @@ limitations under the License. -->
 <script type="module" src="gesture.js"></script>
 <link rel="stylesheet" href="gesture.css">
 
-
-<section id="demos" class="invisible">
-
-  <div id="liveView" class="videoView">
-    <button id="webcamButton" class="mdc-button mdc-button--raised">
-      <span class="mdc-button__ripple"></span>
+<body>
+  <section id="btn-section" class="invisible">
+    <button id="webcamButton" class="default-btn">
       <span class="mdc-button__label">ENABLE WEBCAM</span>
     </button>
-    <button id="testFunctionButton" class="mdc-button mdc-button--raised">
-      <span class="mdc-button__ripple"></span>
-      <span class="mdc-button__label">Test Function</span>
+    <button id="testFunctionButton" class="default-btn">
+      <span>Log und CMD Test</span>
     </button>
+    <button id="testFunctionButton2" class="default-btn">
+      <span>Kurzbefehl Test</span>
+    </button>
+    
+  </section>
+
+
+  <div id="liveView" class="videoView">
+
     <div style="position: relative;">
       <video id="webcam" autoplay playsinline></video>
-      <canvas class="output_canvas" id="output_canvas" width="1280" height="720" style="position: absolute; left: 0px; top: 0px;"></canvas>
+      <canvas class="output_canvas" id="output_canvas" width="1280" height="720"
+        style="position: absolute; left: 0px; top: 0px;"></canvas>
       <p id='gesture_output' class="output">
     </div>
   </div>
-</section>
+</body>

@@ -1,19 +1,17 @@
-
 const vision = require("@mediapipe/tasks-vision");
-
 const { GestureRecognizer, FilesetResolver } = vision;
-
-const demosSection = document.getElementById("demos");
+const buttonSection = document.getElementById("btn-section");
 let gestureRecognizer;
 let runningMode = "IMAGE";
 let enableWebcamButton;
 let webcamRunning = false;
 const videoHeight = "540px";
 const videoWidth = "720px";
+
 // Before we can use HandLandmarker class we must wait for it to finish
 // loading. Machine Learning models can be large and take a moment to
 // get everything needed to run.
-async function runDemo() {
+async function loadVision() {
     const vision = await FilesetResolver.forVisionTasks("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@latest/wasm");
     gestureRecognizer = await GestureRecognizer.createFromOptions(vision, {
         baseOptions: {
@@ -22,13 +20,11 @@ async function runDemo() {
         numHands: 2,
         runningMode: runningMode,
     });
-    demosSection.classList.remove("invisible");
+    buttonSection.classList.remove("invisible");
 }
-runDemo();
+loadVision();
 
-/********************************************************************
- // Demo 2: Continuously grab image from webcam stream and detect it.
- ********************************************************************/
+ // Continuously grab image from webcam stream and detect it.
 const video = document.getElementById("webcam");
 const canvasElement = document.getElementById("output_canvas");
 const canvasCtx = canvasElement.getContext("2d");
@@ -46,7 +42,6 @@ if (hasGetUserMedia()) {
 else {
     console.warn("getUserMedia() is not supported by your browser");
 }
-
 
 // Enable the live webcam view and start detection.
 function enableCam(event) {
