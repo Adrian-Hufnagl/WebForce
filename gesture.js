@@ -8,6 +8,17 @@ let webcamRunning = false;
 const videoHeight = "270px";
 const videoWidth = "360px";
 
+var gestures = [{
+    Unknown: "&#10067;",
+    Closed_Fist: "&#9994;",
+    Open_Palm: "&#128400;",
+    Pointing_Up: "&#9757;",
+    Thumb_Down: "&#128078;",
+    Thumb_Up: "&#128077;",
+    Victory: "&#9996;",
+    ILoveYou: "&#129311;",
+  }]
+
 // Before we can use HandLandmarker class we must wait for it to finish
 // loading. Machine Learning models can be large and take a moment to
 // get everything needed to run.
@@ -94,44 +105,36 @@ async function predictWebcam() {
     }
     canvasCtx.restore();
     leftHandOutput.style.display = "block";
-    leftHandOutput.style.width = videoWidth;
+    leftHandOutput.style.width = "100px";
     rightHandOutput.style.display = "block";
-    rightHandOutput.style.width = videoWidth;
-    leftHandOutput.innerText = "Nicht gefunden";
-    rightHandOutput.innerText = "Nicht gefunden";
+    rightHandOutput.style.width = "100px";
+    leftHandOutput.innerText = "-";
+    rightHandOutput.innerText = "-";
     // Check Handedness and delegate output
     if (results.gestures.length == 1) {
         if(results.handednesses[0][0].categoryName == "Left"){
-            rightHandOutput.innerText =
-            "GestureRecognizer: " +
-            results.gestures[0][0].categoryName +
-            "\n Confidence: " +
+            rightHandOutput.innerHTML =
+            gestures[0][results.gestures[0][0].categoryName] + " " +
             Math.round(parseFloat(results.gestures[0][0].score) * 100) +
             "%";
         }
         if(results.handednesses[0][0].categoryName == "Right"){
-            leftHandOutput.innerText =
-            "GestureRecognizer: " +
-            results.gestures[0][0].categoryName +
-            "\n Confidence: " +
+            leftHandOutput.innerHTML =
+            gestures[0][results.gestures[0][0].categoryName] + " " +
             Math.round(parseFloat(results.gestures[0][0].score) * 100) +
             "%";
         }
         console.log(results)
     }
     if (results.gestures.length == 2) {
-        rightHandOutput.innerText =
-            "GestureRecognizer: " +
-            results.gestures[0][0].categoryName +
-            "\n Confidence: " +
+        rightHandOutput.innerHTML =
+            gestures[0][results.gestures[0][0].categoryName] + " " +
             Math.round(parseFloat(results.gestures[0][0].score) * 100) +
-            "%";
-        leftHandOutput.innerText =
-            "GestureRecognizer: " +
-            results.gestures[1][0].categoryName +
-            "\n Confidence: " +
+            " %";
+        leftHandOutput.innerHTML =
+            gestures[0][results.gestures[1][0].categoryName] + " " +
             Math.round(parseFloat(results.gestures[1][0].score) * 100) +
-            "%";
+            " %";
     }
 
     // Call this function again to keep predicting when the browser is ready.
