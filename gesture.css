@@ -1,4 +1,3 @@
-
 body {
     font-family: roboto;
     color: #3d3d3d;
@@ -12,13 +11,51 @@ body {
     cursor: pointer;
 }
 
-.videoView p,.detectOnClick p {padding-top: 5px;padding-bottom: 5px;background-color: #007f8b;color: #fff;border: 1px dashed rgba(255, 255, 255, 0.7);z-index: 2;margin: 0;}
-.highlighter {background: rgba(0, 255, 0, 0.25);border: 1px dashed #fff;z-index: 1;position: absolute;}
-.output_canvas {transform: rotateY(180deg);-webkit-transform: rotateY(180deg);-moz-transform: rotateY(180deg);}
-.output {display: none;width: 10%;font-size: 36px;margin:0;}
-.canvas {z-index: 0;position: absolute;pointer-events: none; height: 300px;}
-#webcam{transform: rotateY(180deg);-webkit-transform: rotateY(180deg);-moz-transform: rotateY(180deg);}
-.container{
+.videoView p,
+.detectOnClick p {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: #007f8b;
+    color: #fff;
+    border: 1px dashed rgba(255, 255, 255, 0.7);
+    z-index: 2;
+    margin: 0;
+}
+
+.highlighter {
+    background: rgba(0, 255, 0, 0.25);
+    border: 1px dashed #fff;
+    z-index: 1;
+    position: absolute;
+}
+
+.output_canvas {
+    transform: rotateY(180deg);
+    -webkit-transform: rotateY(180deg);
+    -moz-transform: rotateY(180deg);
+}
+
+.output {
+    display: none;
+    width: 10%;
+    font-size: 36px;
+    margin: 0;
+}
+
+.canvas {
+    z-index: 0;
+    position: absolute;
+    pointer-events: none;
+    height: 300px;
+}
+
+#webcam {
+    transform: rotateY(180deg);
+    -webkit-transform: rotateY(180deg);
+    -moz-transform: rotateY(180deg);
+}
+
+.container {
     background: #eee;
     border: 1px solid black;
     margin: 10px;
@@ -26,7 +63,7 @@ body {
     width: fit-content;
 }
 
-.video-container{
+.video-container {
     position: absolute;
     width: 360px;
     height: 270px;
@@ -37,7 +74,7 @@ body {
 }
 
 
-.default-btn{
+.default-btn {
     z-index: 1;
     background: #747f8b;
     position: relative;
@@ -51,7 +88,7 @@ body {
     font-weight: bold;
 }
 
-#btn-section{
+#btn-section {
     display: inline-block;
 }
 
@@ -66,4 +103,24 @@ section {
 
 .invisible {
     opacity: 0.2;
+}
+
+.shortcut-card {
+    display: flex;
+    justify-content: space-between;
+    box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.2);
+    background: white;
+    border-radius: 4px;
+    margin: 8px;
+    padding: 8px;
+}
+
+.shortcut-card:hover {
+    cursor: pointer;
+    border: 3px solid #007f8b;
+    padding: 5px;
+}
+
+.shortcut-symbols {
+    display: flex;
 }

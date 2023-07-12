@@ -16,41 +16,77 @@ limitations under the License. -->
 <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
 <script type="module" src="main.js"></script>
-<script type="module" src="test.js"></script>
 <script type="module" src="gesture.js"></script>
+<script type="module" src="test.js"></script>
 <link rel="stylesheet" href="gesture.css">
 
 <body>
-<div class="container">
-  <section id="btn-section" class="invisible">
-    <button id="webcamButton" class="default-btn">
-      <span class="mdc-button__label">ENABLE WEBCAM</span>
-    </button>
-    <button id="testFunctionButton" class="default-btn">
-      <span>Log und CMD Test</span>
-    </button>
-    <button id="testFunctionButton2" class="default-btn">
-      <span>Kurzbefehl Test</span>
-    </button>
-  </section>
-</div>
 
-<div class="container" style="height: 270px;width:360px;">
-  <div id="liveView" class="video-container">
+  <div id="ui-models" style="display: none;">
+    <div class="shortcut-card">
+      <div class="shortcut-label"></div>
+      <div class="shortcut-symbols">
+        <div class="shortcut-left-symbol"></div>
+        <div class="shortcut-right-symbol"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <p style="font-size: 22px;">Gestures: 1 &#9994; 2 &#128400; 3 &#9757; 4 &#128077; 5 &#128078; 6 &#9996; 7 &#129311;
+    </p>
+  </div>
+
+  <div class="container">
+    <section id="btn-section" class="invisible">
+      <button id="webcamButton" class="default-btn">
+        <span class="mdc-button__label">ENABLE WEBCAM</span>
+      </button>
+      <button id="testFunctionButton" class="default-btn">
+        <span>Kurzbefehl Ausführen</span>
+      </button>
+      <button id="testFunctionButton2" class="default-btn">
+        <span>Shortcut Listing</span>
+      </button>
+    </section>
+  </div>
+
+  <div class="container" style="height: 270px;width:360px;">
+    <div id="leftHand" class="hand-preview"></div>
+    <div id="liveView" class="video-container">
       <video id="webcam" autoplay playsinline></video>
-      <canvas class="output_canvas" id="output_canvas" width="1280" height="720"
+      <canvas class="output_canvas" id="output_canvas" width="1280" height="0"
         style="position: absolute; left: 0px; top: 0px;"></canvas>
-  </div>
-</div>
-<p style="font-size: 32px;">Gestures: 1 &#9994; 2 &#128400; 3 &#9757; 4 &#128077; 5 &#128078; 6 &#9996; 7 &#129311; </p>
-<div class="container">
-  <div class="output-container">
-    <div style="display: inline-block;">
-    <p id='gesture-output-left' class="output">
     </div>
-    <div style="display: inline-block;">
-      <p id="gesture-output-right" class="output">
+    <div id="rightHand" class="hand-preview"></div>
+  </div>
+
+  <div class="container">
+    <div class="output-container">
+      <div style="display: inline-block;">
+        <p id='gesture-output-left' class="output">
+      </div>
+      <div style="display: inline-block;">
+        <p id="gesture-output-right" class="output">
+      </div>
     </div>
   </div>
-</div>
+
+  <div class="container">
+    <div id="leftHistory" style="font-size: 24px;">Left: </div>
+    <div id="leftCounter"></div>
+    <div id="rightHistory" style="font-size: 24px;">Right: </div>
+    <div id="rightCounter"></div>
+  </div>
+
+  <div class="container">
+    <div id="shortcutList" style="font-size: 14px; font-weight: bold;">
+
+    </div>
+  </div>
+
+  <div class="container">
+    <div id="debug-table" style="font-size: 14px; font-weight: bold;"></div>
+  </div>
+
 </body>
