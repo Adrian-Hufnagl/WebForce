@@ -252,7 +252,7 @@ function checkGesture(gesture, left) {
                 leftGesture = gesture;
             } else {
                 leftCounter++;
-                if (leftCounter == gestDuration) {
+                if (leftCounter == gestureDuration) {
                     leftHistory.push(gesture);
                     leftHistoryEl.innerHTML = leftHistoryEl.innerHTML + leftGesture;
                 }
@@ -264,7 +264,7 @@ function checkGesture(gesture, left) {
                 rightGesture = gesture;
             } else {
                 rightCounter++;
-                if (rightCounter == gestDuration) {
+                if (rightCounter == gestureDuration) {
                     rightHistory.push(gesture);
                     rightHistoryEl.innerHTML = rightHistoryEl.innerHTML + rightGesture;
                 }
