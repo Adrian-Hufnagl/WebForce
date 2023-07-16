@@ -35,7 +35,7 @@ let rightCounterEl = document.getElementById("rightCounter")
 let activeCounter = 0;
 
 let gestureDuration = 5;
-let activeDuration = 15;
+let activeDuration = 30;
 
 
 var gestureList = {
@@ -190,6 +190,16 @@ async function predictWebcam() {
     let rightResultSymbol;
     let rightConfidence;
 
+    // Count up active left gesture
+    if (activeCounter > 0){
+        if (activeCounter == activeDuration){
+            activeCounter = 0;
+            playSound(soundPathCancel)
+        } else {
+            activeCounter++;
+        }
+    }
+
     // Check Handedness and delegate output
     // CategoryName is inverted because the original video stream is inverted
     // One Hand -> Ask which one it is
@@ -253,6 +263,9 @@ function checkGesture(gesture, left) {
             } else {
                 leftCounter++;
                 if (leftCounter == gestureDuration) {
+                    ///FIRING LEFT///
+                    playSound(soundPathLeft)
+                    activeCounter = 1;
                     leftHistory.push(gesture);
                     leftHistoryEl.innerHTML = leftHistoryEl.innerHTML + leftGesture;
                 }
@@ -265,6 +278,14 @@ function checkGesture(gesture, left) {
             } else {
                 rightCounter++;
                 if (rightCounter == gestureDuration) {
+                    ///FIRING RIGHT///
+                    if(activeCounter == 0){
+                        playSound(soundPathRight)
+                    } else{
+                        playSound(soundPathSuccess)
+                        activeCounter = 0;
+                        gesturesToCommand()
+                    }
                     rightHistory.push(gesture);
                     rightHistoryEl.innerHTML = rightHistoryEl.innerHTML + rightGesture;
                 }
@@ -353,7 +374,7 @@ function configShortcuts(event) {
     console.log(e.childNodes[1].innerHTML)
     findCMD(e.childNodes[1].innerHTML)
   }
-  
+  // find CMD could be in configGesture
   function findCMD(name) {
     for (let i = 0; i < 7; i++) {
       for (let j = 0; j < 7; j++) {
@@ -371,10 +392,20 @@ function configShortcuts(event) {
   
   function execute(cmdID) {
     console.log("shortcuts run " + cmdID);
-    playSound(soundPathSuccess);
     execSync("shortcuts run " + cmdID);
   }
   
+
   function playSound(path){
     sound.play(path);
+  }
+
+
+  // Get gestures and apply fitting cmd
+  function gesturesToCommand(){
+    let leftID = gestureMap.indexOf(leftGesture);
+    let rightID = gestureMap.indexOf(rightGesture);
+    console.log(leftID);
+    console.log(rightID);
+    execute(shortcutArray[leftID][rightID][1]);
   }
