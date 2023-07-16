@@ -203,6 +203,11 @@ async function predictWebcam() {
     // Check Handedness and delegate output
     // CategoryName is inverted because the original video stream is inverted
     // One Hand -> Ask which one it is
+    if (results.gestures.length == 0) {
+      leftCounter = 0;
+      rightCounter = 0;
+    }
+
     if (results.gestures.length == 1) {
         let resultSymbol = gestureList[results.gestures[0][0].categoryName];
         if (results.handednesses[0][0].categoryName == "Right") {
@@ -210,6 +215,7 @@ async function predictWebcam() {
                 Math.round(parseFloat(results.gestures[0][0].score) * 100) +
                 "%";
             checkGesture(resultSymbol, true);
+            rightCounter = 0;
         }
         if (results.handednesses[0][0].categoryName == "Left") {
             rightHandOutput.innerHTML =
@@ -217,6 +223,7 @@ async function predictWebcam() {
                 Math.round(parseFloat(results.gestures[0][0].score) * 100) +
                 "%";
             checkGesture(resultSymbol, false);
+            leftCounter = 0;
         }
     }
 
@@ -240,6 +247,10 @@ async function predictWebcam() {
         checkGesture(rightResultSymbol, false);
     }
 
+    leftCounterEl.innerHTML = leftCounter;
+    rightCounterEl.innerHTML = rightCounter;
+
+
     // Call this function again to keep predicting when the browser is ready.
     if (webcamRunning === true) {
         window.requestAnimationFrame(predictWebcam);
@@ -256,7 +267,6 @@ function checkGesture(gesture, left) {
     if (gesture != undefined && gesture != gestureList["None"]) {
         // If Left Gesture
         if (left) {
-            console.log("left is true")
             if (gesture != leftGesture) {
                 leftCounter = 1;
                 leftGesture = gesture;
@@ -298,8 +308,6 @@ function checkGesture(gesture, left) {
             rightCounter = 0;
         }
     }
-    leftCounterEl.innerHTML = leftCounter;
-    rightCounterEl.innerHTML = rightCounter;
 }
 
 
