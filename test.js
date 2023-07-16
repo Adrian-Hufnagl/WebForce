@@ -1,5 +1,11 @@
 const { exec } = require('child_process');
 const { execSync } = require('child_process');
+const sound = require("sound-play");
+const soundPathLeft = "/System/Library/Sounds/Morse.aiff";
+const soundPathRight = "/System/Library/Sounds/Pop.aiff";
+const soundPathCancel = "/System/Library/Sounds/Purr.aiff";
+const soundPathSuccess = "/System/Library/Sounds/Frog.aiff";
+
 let yourCommand = 'shortcuts run Test';
 let yourCommand2 = 'shortcuts run "Zoom öffnen"';
 let shortcutArray;
@@ -132,6 +138,11 @@ function findCMD(name) {
 }
 
 function execute(cmdID) {
-  console.log("shortcuts run " + cmdID)
+  console.log("shortcuts run " + cmdID);
+  playSound(soundPathSuccess);
   execSync("shortcuts run " + cmdID);
+}
+
+function playSound(path){
+  sound.play(path);
 }

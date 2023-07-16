@@ -221,5 +221,3 @@ function checkGesture(gesture, left) {
     leftCounterEl.innerHTML = leftCounter;
     rightCounterEl.innerHTML = rightCounter;
 }
-
-module.exports = { gestureList };

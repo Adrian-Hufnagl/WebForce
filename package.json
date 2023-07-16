@@ -24,7 +24,8 @@
     "@mediapipe/tasks-vision": "^0.10.2-rc2",
     "esm": "^3.2.25",
     "fix-esm": "^1.0.1",
-    "fix-path": "^3.0.0"
+    "fix-path": "^3.0.0",
+    "sound-play": "^1.1.0"
   },
   "devDependencies": {
     "electron": "latest",
@@ -34,7 +35,7 @@
     "appId": "com.adrian.macforce",
     "mac": {
       "category": "public.app-category.productivity",
-        "icon": "assets/icon.icns"
+      "icon": "assets/icon.icns"
     }
   }
 }
