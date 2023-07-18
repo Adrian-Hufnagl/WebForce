@@ -1,7 +1,14 @@
 body {
-    font-family: roboto;
+    font-family: Arial, Helvetica, sans-serif;
     color: #3d3d3d;
+    margin-top: 0;
 }
+
+ul {
+    columns: 2;
+    -webkit-columns: 2;
+    -moz-columns: 2;
+  }
 
 .detectOnClick {
     position: relative;
@@ -55,12 +62,17 @@ body {
     -moz-transform: rotateY(180deg);
 }
 
+#webcamButton{
+    width: 250px;
+}
+
 .container {
-    background: #eee;
-    border: 1px solid black;
-    margin: 10px;
+    background: #f3f5f7;
+    margin: 30px auto;
     padding: 10px;
     width: fit-content;
+    width: 766px;
+    border-radius: 6px;
 }
 
 .video-container {
@@ -76,7 +88,7 @@ body {
 
 .default-btn {
     z-index: 1;
-    background: #747f8b;
+    background: #3f7f8b;
     position: relative;
     border: none;
     border-radius: 4px;
@@ -86,6 +98,7 @@ body {
     height: 50px;
     font-size: 16px;
     font-weight: bold;
+    box-shadow: 0 3px 6px 0 rgb(0 0 0 / 10%);
 }
 
 #btn-section {
@@ -108,19 +121,90 @@ section {
 .shortcut-card {
     display: flex;
     justify-content: space-between;
-    box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 3px 5px 0 rgb(0 0 0 / 20%);
     background: white;
     border-radius: 4px;
-    margin: 8px;
-    padding: 8px;
+    margin: 0 16px 16px 16px;
+    min-width: 300px;
+    padding: 12px;
+    align-items: center;
+    font-size: 18px;
 }
 
 .shortcut-card:hover {
     cursor: pointer;
-    border: 3px solid #007f8b;
-    padding: 5px;
+    border: 4px solid #007f8b;
+    padding: 8px;
 }
 
 .shortcut-symbols {
     display: flex;
+}
+
+.shortcut-symbol {
+    font-size: 28px;
+    padding-left: 8px;
+}
+
+.header-container{
+    display: flex;
+    justify-content: space-between;
+}
+
+.popup-button {
+    font-size: 22px;
+    margin: 10px 4px;
+    border: none;
+    padding: 0px 13px;
+    color: black;
+    cursor: pointer;
+    background: white;
+    border-radius: 4px;
+    font-weight: bold;
+    box-shadow: 0 3px 6px 0 rgb(0 0 0 / 10%);
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    z-index: 10;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    left: 0;
+    right: 0;
+    margin: auto;
+    top: 0;
+    background-color: rgba(0,0,0,0.3);
+}
+
+.popup-content {
+    background-color: #fefefe;
+    margin: 60px auto;
+    padding: 20px;
+    width: 80%;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 6px 12px 0 rgb(0 0 0 / 20%);
+    font-size: 20px;
+}
+
+.popup-content > p{
+    margin: 20px;
+}
+
+.close-button {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
 }

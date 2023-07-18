@@ -22,36 +22,35 @@ limitations under the License. -->
 <body>
 
   <div id="ui-models" style="display: none;">
-    <div class="shortcut-card">
+    <li class="shortcut-card">
       <div class="shortcut-label"></div>
       <div class="shortcut-symbols">
-        <div class="shortcut-left-symbol"></div>
-        <div class="shortcut-right-symbol"></div>
+        <div class="shortcut-left-symbol shortcut-symbol"></div>
+        <div class="shortcut-right-symbol shortcut-symbol"></div>
       </div>
+    </li>
+  </div>
+
+  <div id="popup" class="popup">
+    <div class="popup-content">
+      <span id="closeButton" class="close-button">&times;</span>
+      <p>Drücke auf "Anwendung Starten" und erlaube der Anwendung auf die Kamera zuzugreifen.
+        Nun werden die Apple-Kurzbefehle in einer Liste abgelegt. Jedem Kurzbefehl wird ein Gestenpaar zugewiesen.
+        Du kannst mit deinen Händen die 7 Gesten (&#9994; &#128400; &#9757; &#128077; &#128078; &#9996; &#129311;)
+        nachmachen.
+        Füre zuerst die linke und dann die rechte Geste des Kurbefehls mit deiner linken und rechten Hand aus, um den
+        jeweiligen Befehl zu aktivieren.
+      </p>
     </div>
   </div>
 
   <div class="container">
-    <p style="font-size: 22px;">Gestures: 1 &#9994; 2 &#128400; 3 &#9757; 4 &#128077; 5 &#128078; 6 &#9996; 7 &#129311;</p>
-  </div>
-
-  <div class="container">
-    Debug History
-    <div id="leftHistory" style="font-size: 12px;">Left: </div>
-    <div id="leftCounter"></div>
-    <div id="rightHistory" style="font-size: 12px;">Right: </div>
-    <div id="rightCounter"></div>
-  </div>
-
-  <div class="container">
-    <section id="btn-section" class="invisible">
+    <div class="header-container">
       <button id="webcamButton" class="default-btn">
-        <span class="mdc-button__label">ENABLE WEBCAM</span>
+        <span>&#128582;&#8205;&#9792;&#65039; Start Application</span>
       </button>
-      <button id="testFunctionButton" class="default-btn">
-        <span>Shortcut Listing</span>
-      </button>
-    </section>
+      <button id="popupButton" class="popup-button">?</button>
+    </div>
   </div>
 
   <div class="container" style="height: 270px;width:360px;">
@@ -75,12 +74,18 @@ limitations under the License. -->
     </div>
   </div>
 
+  <div class="container">
+    <ul id="shortcutList" class="columns" data-columns="2" style="font-size: 14px; font-weight: bold;">
 
+    </ul>
+  </div>
 
   <div class="container">
-    <div id="shortcutList" style="font-size: 14px; font-weight: bold;">
-
-    </div>
+    Debug History
+    <div id="leftHistory" style="font-size: 12px;">Left: </div>
+    <div id="leftCounter"></div>
+    <div id="rightHistory" style="font-size: 12px;">Right: </div>
+    <div id="rightCounter"></div>
   </div>
 
 </body>

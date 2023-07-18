@@ -13,6 +13,7 @@ const sound = require("sound-play");
 
 const buttonSection = document.getElementById("btn-section");
 
+let initialized = false;
 let gestureRecognizer;
 let runningMode = "IMAGE";
 let enableWebcamButton;
@@ -75,8 +76,8 @@ shortCutExample.addEventListener('click', function (event) {
   configGesture(event.currentTarget); // Logs the element that was clicked
 });
 
-let testButton = document.getElementById("testFunctionButton");
-testButton.addEventListener("click", configShortcuts);
+//let testButton = document.getElementById("testFunctionButton");
+//testButton.addEventListener("click", configShortcuts);
 
 
 ///////////////////////////////////////////////////
@@ -125,17 +126,23 @@ else {
 
 // Enable the live webcam view and start detection.
 function enableCam(event) {
+    if(!initialized){
+      initialized = true;
+      configShortcuts();
+    }
     if (!gestureRecognizer) {
         alert("Please wait for gestureRecognizer to load");
         return;
     }
     if (webcamRunning === true) {
         webcamRunning = false;
-        enableWebcamButton.innerText = "ENABLE PREDICTIONS";
+        enableWebcamButton.innerHTML = "&#128582; Befehle aktivieren ";
+        enableWebcamButton.style = "background: #007f8b;"
     }
     else {
         webcamRunning = true;
-        enableWebcamButton.innerText = "DISABLE PREDICITONS";
+        enableWebcamButton.innerHTML = "&#128581; Befehle deaktivieren ";
+        enableWebcamButton.style = "background: #8b7f8b;"
     }
     // getUsermedia parameters.
     const constraints = {
@@ -180,9 +187,9 @@ async function predictWebcam() {
     }
     canvasCtx.restore();
     leftHandOutput.style.display = "block";
-    leftHandOutput.style.width = "100px";
+    leftHandOutput.style.width = "200px";
     rightHandOutput.style.display = "block";
-    rightHandOutput.style.width = "100px";
+    rightHandOutput.style.width = "200px";
     leftHandOutput.innerText = "-";
     rightHandOutput.innerText = "-";
     let leftResultSymbol;
@@ -417,3 +424,27 @@ function configShortcuts(event) {
     console.log(rightID);
     execute(shortcutArray[leftID][rightID][1]);
   }
+
+
+///////////////////////////////////////////////////
+///////////////////////POPUP//////////////////////
+///////////////////////////////////////////////////
+
+
+var popup = document.getElementById('popup');
+var popupButton = document.getElementById('popupButton');
+var closeButton = document.getElementById('closeButton');
+
+popupButton.onclick = function() {
+    popup.style.display = "block";
+}
+
+closeButton.onclick = function() {
+    popup.style.display = "none";
+}
+
+window.onclick = function(event) {
+    if (event.target == popup) {
+        popup.style.display = "none";
+    }
+}

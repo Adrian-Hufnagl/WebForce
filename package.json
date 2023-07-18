@@ -1,6 +1,6 @@
 {
   "type": "commonjs",
-  "name": "wwebforce",
+  "name": "macforce",
   "version": "1.0.0",
   "description": "MediaPipe Gesture Commands",
   "main": "main.js",
