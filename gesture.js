@@ -21,6 +21,8 @@ let webcamRunning = false;
 const videoHeight = "270px";
 const videoWidth = "360px";
 
+let currentGestureName = "";
+
 let leftGesture;
 let leftHistory = [];
 let leftHistoryEl = document.getElementById("leftHistory")
@@ -35,8 +37,11 @@ let rightCounterEl = document.getElementById("rightCounter")
 
 var tutorialPopup = document.getElementById('tutorial-popup');
 var editPopup = document.getElementById('edit-popup');
-
+var editPopupHeader = document.getElementById('edit-popup-header');
 var popupButton = document.getElementById('popupButton');
+var confirmButton = document.getElementById('confirm-gest-btn');
+
+
 
 
 let activeCounter = 0;
@@ -111,6 +116,10 @@ const leftHandOutput = document.getElementById("gesture-output-left");
 const rightHandOutput = document.getElementById("gesture-output-right");
 const canvasRight = document.getElementById("rightHand");
 const canvasLeft = document.getElementById("leftHand");
+
+const outputContent = document.getElementById("output-content");
+const outputContainer1 = document.getElementById("output-container-1");
+const outputContainer2 = document.getElementById("output-container-2");
 
 // Check if webcam access is supported.
 function hasGetUserMedia() {
@@ -384,28 +393,35 @@ function configShortcuts(event) {
     newShortcut.childNodes[3].childNodes[3].innerHTML = gestureMap[y];
     shortCuts.appendChild(newShortcut);
   }
+
+  function findCMD(left) {
+    for (let i = 0; i < 7; i++) {
+      for (let j = 0; j < 7; j++) {
+        if (shortcutArray[i][j] != null) {
+          if (shortcutArray[i][j][0] == currentGestureName) {
+            console.log("shortcutArray");
+            console.log(i);
+            console.log(j);
+            //execute(shortcutArray[i][j][1])
+            if(left){
+              return i;
+            }else{
+              return j;
+            }
+          }
+        }
+      }
+    }
+  }
   
   function configGesture(e) {
     console.log("Config Button:")
     console.log(e)
     console.log(e.childNodes[1].innerHTML)
-    findCMD(e.childNodes[1].innerHTML)
+    currentGestureName = e.childNodes[1].innerHTML
     editPopup.style.display = "block";
-  }
-  // find CMD could be in configGesture
-  function findCMD(name) {
-    for (let i = 0; i < 7; i++) {
-      for (let j = 0; j < 7; j++) {
-        if (shortcutArray[i][j] != null) {
-          if (shortcutArray[i][j][0] == name) {
-            console.log("shortcutArray");
-            console.log(i);
-            console.log(j);
-            execute(shortcutArray[i][j][1])
-          }
-        }
-      }
-    }
+    outputContainer2.appendChild(outputContent)
+    editPopupHeader.innerHTML = currentGestureName + ": Neues Gestenpaar zuordnen";
   }
   
   function execute(cmdID) {
@@ -428,12 +444,31 @@ function configShortcuts(event) {
     execute(shortcutArray[leftID][rightID][1]);
   }
 
+  //Get gestures and config shortcut
+  //TODO Take Index of Shortcut Array from Gesture
+  //Mach erstmal ein Konzept wie Datending funktionieren soll
+  function configNewGesture(){
+    //let oldleftID = gestureMap.indexOf(leftGesture);
+    //let oldrightID = gestureMap.indexOf(rightGesture);
+    let newLeftID  = gestureMap.indexOf(leftGesture);
+    let newRightID = gestureMap.indexOf(rightGesture);
+    let gesture = shortcutArray[leftID][rightID];
+    shortcutArray[leftID][rightID] = null;
+    console.log(gesture);
+    //find CMD ist unsinn
+    console.log(findCMD(true));
+    console.log(findCMD(false));
+
+  }
+
 
 ///////////////////////////////////////////////////
 ///////////////////////POPUPS//////////////////////
 ///////////////////////////////////////////////////
 
-
+confirmButton.onclick = function() {
+  configNewGesture();
+}
 
 popupButton.onclick = function() {
   tutorialPopup.style.display = "block";
@@ -445,5 +480,6 @@ window.onclick = function(event) {
     }
     if (event.target == editPopup) {
       editPopup.style.display = "none";
+      outputContainer1.appendChild(outputContent)
     }
 }

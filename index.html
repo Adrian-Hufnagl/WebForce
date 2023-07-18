@@ -45,19 +45,29 @@ limitations under the License. -->
 
   <div id="edit-popup" class="popup">
     <div class="popup-content">
-      <div>H</div>
-      <div>D</div>
+      <div id="edit-popup-header"></div>
+      <div class="edit-gesture-container">
+        <div id="edit-left-hand" class="edit-hand">Links</div>
+        <div id="edit-right-hand" class="edit-hand">Rechts</div>
+      </div>
+      <div id="output-container-2">
+
+      </div>
+      <div class="popup-btn-section">
+        <div id="new-gest-btn" class="default-btn">Neuer Versuch</div>
+        <div id="confirm-gest-btn" class="default-btn">Bestätigen</div>
+      </div>
     </div>
   </div>
 
   <div class="container">
     <div class="header-container">
-    <div id="btn-section">
-      <button id="webcamButton" class="default-btn">
-        <span>&#128582;&#8205;&#9792;&#65039; Start Application</span>
-      </button>
-    </div>
-      
+      <div id="btn-section">
+        <button id="webcamButton" class="default-btn">
+          <span>&#128582;&#8205;&#9792;&#65039; Anwendung Starten</span>
+        </button>
+      </div>
+
       <button id="popupButton" class="popup-button">?</button>
     </div>
   </div>
@@ -73,12 +83,14 @@ limitations under the License. -->
   </div>
 
   <div class="container">
-    <div class="output-container">
-      <div style="display: inline-block;">
-        <p id='gesture-output-left' class="output">
-      </div>
-      <div style="display: inline-block;">
-        <p id="gesture-output-right" class="output">
+    <div id="output-container-1">
+      <div id="output-content">
+        <div style="display: inline-block;">
+          <p id='gesture-output-left' class="output">
+        </div>
+        <div style="display: inline-block;">
+          <p id="gesture-output-right" class="output">
+        </div>
       </div>
     </div>
   </div>
@@ -89,7 +101,7 @@ limitations under the License. -->
     </ul>
   </div>
 
-  <div class="container">
+  <div class="container" style="display: none;">
     Debug History
     <div id="leftHistory" style="font-size: 12px;">Left: </div>
     <div id="leftCounter"></div>
