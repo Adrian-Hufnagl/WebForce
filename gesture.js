@@ -33,6 +33,12 @@ let rightHistoryEl = document.getElementById("rightHistory")
 let rightCounter = 0;
 let rightCounterEl = document.getElementById("rightCounter")
 
+var tutorialPopup = document.getElementById('tutorial-popup');
+var editPopup = document.getElementById('edit-popup');
+
+var popupButton = document.getElementById('popupButton');
+
+
 let activeCounter = 0;
 
 let gestureDuration = 5;
@@ -75,10 +81,6 @@ let shortCutExample = document.getElementsByClassName("shortcut-card")[0]
 shortCutExample.addEventListener('click', function (event) {
   configGesture(event.currentTarget); // Logs the element that was clicked
 });
-
-//let testButton = document.getElementById("testFunctionButton");
-//testButton.addEventListener("click", configShortcuts);
-
 
 ///////////////////////////////////////////////////
 ///////////////////////SETUP///////////////////////
@@ -375,7 +377,7 @@ function configShortcuts(event) {
   
     let newShortcut = shortCutExample.cloneNode(true)
     newShortcut.addEventListener('click', function (event) {
-      configGesture(event.currentTarget); // Logs the element that was clicked
+      configGesture(event.currentTarget);
     });
     newShortcut.childNodes[1].innerHTML = shortcutArray[x][y][0];
     newShortcut.childNodes[3].childNodes[1].innerHTML = gestureMap[x];
@@ -388,6 +390,7 @@ function configShortcuts(event) {
     console.log(e)
     console.log(e.childNodes[1].innerHTML)
     findCMD(e.childNodes[1].innerHTML)
+    editPopup.style.display = "block";
   }
   // find CMD could be in configGesture
   function findCMD(name) {
@@ -427,24 +430,20 @@ function configShortcuts(event) {
 
 
 ///////////////////////////////////////////////////
-///////////////////////POPUP//////////////////////
+///////////////////////POPUPS//////////////////////
 ///////////////////////////////////////////////////
 
 
-var popup = document.getElementById('popup');
-var popupButton = document.getElementById('popupButton');
-var closeButton = document.getElementById('closeButton');
 
 popupButton.onclick = function() {
-    popup.style.display = "block";
-}
-
-closeButton.onclick = function() {
-    popup.style.display = "none";
+  tutorialPopup.style.display = "block";
 }
 
 window.onclick = function(event) {
-    if (event.target == popup) {
-        popup.style.display = "none";
+    if (event.target == tutorialPopup) {
+      tutorialPopup.style.display = "none";
+    }
+    if (event.target == editPopup) {
+      editPopup.style.display = "none";
     }
 }
