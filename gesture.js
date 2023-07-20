@@ -413,21 +413,41 @@ function configShortcuts(event) {
       }
     }
   }
+
+  function findAndExecute() {
+    for (let i = 0; i < 7; i++) {
+      for (let j = 0; j < 7; j++) {
+        if (shortcutArray[i][j] != null) {
+          if (shortcutArray[i][j][0] == currentGestureName) {
+            execute(shortcutArray[i][j][1])
+          }
+        }
+      }
+    }
+  }
+
+  function execute(cmdID) {
+    console.log("shortcuts run " + cmdID);
+    execSync("shortcuts run " + cmdID);
+  }
   
   function configGesture(e) {
     console.log("Config Button:")
     console.log(e)
     console.log(e.childNodes[1].innerHTML)
     currentGestureName = e.childNodes[1].innerHTML
-    editPopup.style.display = "block";
-    outputContainer2.appendChild(outputContent)
-    editPopupHeader.innerHTML = currentGestureName + ": Neues Gestenpaar zuordnen";
+    if(webcamRunning){
+      editPopup.style.display = "block";
+      outputContainer2.appendChild(outputContent)
+      editPopupHeader.innerHTML = currentGestureName + ": Neues Gestenpaar zuordnen";
+    } else{
+      findAndExecute();
+    }
+    
+    
   }
   
-  function execute(cmdID) {
-    console.log("shortcuts run " + cmdID);
-    execSync("shortcuts run " + cmdID);
-  }
+
   
 
   function playSound(path){
@@ -465,6 +485,7 @@ function configShortcuts(event) {
 ///////////////////////////////////////////////////
 ///////////////////////POPUPS//////////////////////
 ///////////////////////////////////////////////////
+
 
 confirmButton.onclick = function() {
   configNewGesture();
