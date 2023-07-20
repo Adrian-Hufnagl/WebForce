@@ -48,10 +48,6 @@ limitations under the License. -->
   <div id="edit-popup" class="popup">
     <div class="popup-content">
       <div id="edit-popup-header"></div>
-      <div class="edit-gesture-container">
-        <div id="edit-left-hand" class="edit-hand">Links</div>
-        <div id="edit-right-hand" class="edit-hand">Rechts</div>
-      </div>
       <div id="output-container-2">
 
       </div>
@@ -87,12 +83,20 @@ limitations under the License. -->
   <div class="container">
     <div id="output-container-1">
       <div id="output-content">
-        <div style="display: inline-block;">
-          <p id='gesture-output-left' class="output">
+        <div>
+          <div id="gesture-confidence-left" class="gesture-confidence">
+            <div style="display: inline-block;">
+              <p id='gesture-output-left' class="output">
+            </div>
+          </div>
+          <div id="gesture-confidence-right" class="gesture-confidence">
+            <div style="display: inline-block;">
+              <p id="gesture-output-right" class="output">
+            </div>
+          </div>
         </div>
-        <div style="display: inline-block;">
-          <p id="gesture-output-right" class="output">
-        </div>
+        <div id="gesture-confirmed-left" class="gesture-confirmed"></div>
+        <div id="gesture-confirmed-right" class="gesture-confirmed"></div>
       </div>
     </div>
   </div>
@@ -111,4 +115,5 @@ limitations under the License. -->
     <div id="rightCounter"></div>
   </div>
 
+  <div id="snackbar">Some text some message..</div>
 </body>

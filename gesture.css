@@ -42,11 +42,53 @@ ul {
     -moz-transform: rotateY(180deg);
 }
 
+#output-content{
+    display: flex;
+    justify-content: end;
+}
+
+.gesture-confidence{
+    width: 540px;
+    color: white;
+    border-radius: 8px;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -khtml-border-radius: 8px;
+}
+
+#gesture-confidence-left{
+    margin-bottom: 10px;
+    background: linear-gradient(to right, #3d3d3d 0% ,#3d3d3d 70% ,#3d3d3d80 70% ,#3d3d3d80 100%);
+}
+
+#gesture-confidence-right{
+    background: linear-gradient(to right, #3d3d3d 0% ,#3d3d3d 70% ,#3d3d3d80 70% ,#3d3d3d80 100%);
+}
+
+
 .output {
     display: none;
-    width: 10%;
-    font-size: 36px;
-    margin: 0;
+    width: 200px;
+    font-size: 26px;
+    margin: 4px 10px;
+    height: 34px;
+}
+
+.gesture-confirmed{
+    width: -webkit-fill-available;
+    margin-left: 10px;
+    background: #adb6bd;
+    border-radius: 8px;
+    padding: 14px 26px;
+    font-size: 50px;
+}
+
+#gesture-confirmed-left{
+    background: #007f8b80;
+}
+
+#gesture-confirmed-right{
+    background: #adb6bd;
 }
 
 .canvas {
@@ -144,7 +186,7 @@ section {
     box-shadow: 0 3px 5px 0 rgb(0 0 0 / 20%);
     background: white;
     border-radius: 4px;
-    margin: 0 16px 16px 16px;
+    margin-bottom: 16px;
     min-width: 300px;
     padding: 12px;
     align-items: center;
@@ -221,19 +263,54 @@ section {
     margin: 20px;
 }
 
-.edit-gesture-container{
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-    font-size: 22;
-}
-
 #edit-popup-header{
-    margin-bottom: 20px;
+    margin-bottom: 60px;
     font-weight: bold;
 }
 
 .popup-btn-section{
+    margin-top: 30px;
     display: flex;
     justify-content: end;
 }
+
+#snackbar {
+    visibility: hidden;
+    min-width: 250px;
+    margin-left: -125px;
+    background-color: #8d969d;
+    color: #fff;
+    text-align: center;
+    border-radius: 8px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    bottom: 30px;
+  }
+  
+  #snackbar.show {
+    visibility: visible; 
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  }
+
+  @-webkit-keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+  }
+  
+  @keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+  }
+  
+  @-webkit-keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
+  }
+  
+  @keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
+  }

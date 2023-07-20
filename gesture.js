@@ -49,6 +49,9 @@ let activeCounter = 0;
 let gestureDuration = 5;
 let activeDuration = 30;
 
+let delayCounter = 0;
+let delayDuration = 60;
+
 
 var gestureList = {
     None: "&#10067;",
@@ -116,7 +119,11 @@ const leftHandOutput = document.getElementById("gesture-output-left");
 const rightHandOutput = document.getElementById("gesture-output-right");
 const canvasRight = document.getElementById("rightHand");
 const canvasLeft = document.getElementById("leftHand");
+const leftConfidenceBar = document.getElementById("gesture-confidence-left");
+const rightConfidenceBar = document.getElementById("gesture-confidence-right");
 
+const leftConfirmed = document.getElementById("gesture-confirmed-left");
+const rightConfirmed = document.getElementById("gesture-confirmed-right");
 const outputContent = document.getElementById("output-content");
 const outputContainer1 = document.getElementById("output-container-1");
 const outputContainer2 = document.getElementById("output-container-2");
@@ -140,6 +147,7 @@ function enableCam(event) {
     if(!initialized){
       initialized = true;
       configShortcuts();
+      showMessage("Shortcuts geladen");
     }
     if (!gestureRecognizer) {
         alert("Please wait for gestureRecognizer to load");
@@ -149,11 +157,13 @@ function enableCam(event) {
         webcamRunning = false;
         enableWebcamButton.innerHTML = "&#128582; Befehle aktivieren ";
         enableWebcamButton.style = "background: #007f8b;"
+        showMessage("Kurzbefehle sind nur noch durch die Buttons ausführbar!");
     }
     else {
         webcamRunning = true;
         enableWebcamButton.innerHTML = "&#128581; Befehle deaktivieren ";
         enableWebcamButton.style = "background: #8b7f8b;"
+        showMessage("Kurzbefehle können mit Gesten ausgeführt werden.");
     }
     // getUsermedia parameters.
     const constraints = {
@@ -201,8 +211,8 @@ async function predictWebcam() {
     leftHandOutput.style.width = "200px";
     rightHandOutput.style.display = "block";
     rightHandOutput.style.width = "200px";
-    leftHandOutput.innerText = "-";
-    rightHandOutput.innerText = "-";
+    leftHandOutput.innerText = "";
+    rightHandOutput.innerText = "";
     let leftResultSymbol;
     let leftConfidence;
     let rightResultSymbol;
@@ -212,11 +222,28 @@ async function predictWebcam() {
     if (activeCounter > 0){
         if (activeCounter == activeDuration){
             activeCounter = 0;
+            leftConfirmed.innerHTML = "";
+            rightConfirmed.innerHTML = "";
+            leftConfirmed.style.background = '#007f8b80';
+            rightConfirmed.style.background = '#adb6bd';
+
             playSound(soundPathCancel)
         } else {
             activeCounter++;
         }
     }
+    if(delayCounter > 0){
+        if (delayCounter == delayDuration){
+            delayCounter = 0;
+            leftConfirmed.innerHTML = "";
+            rightConfirmed.innerHTML = "";
+            leftConfirmed.style.background = '#007f8b80';
+            rightConfirmed.style.background = '#adb6bd';
+        } else {
+            delayCounter++;
+        }
+    }
+
 
     // Check Handedness and delegate output
     // CategoryName is inverted because the original video stream is inverted
@@ -224,24 +251,32 @@ async function predictWebcam() {
     if (results.gestures.length == 0) {
       leftCounter = 0;
       rightCounter = 0;
+      leftConfidenceBar.style.background = "#007f8b80";
+      rightConfidenceBar.style.background = "#7f8b0080";    
     }
 
     if (results.gestures.length == 1) {
         let resultSymbol = gestureList[results.gestures[0][0].categoryName];
         if (results.handednesses[0][0].categoryName == "Right") {
+          leftConfidence = Math.round(parseFloat(results.gestures[0][0].score) * 100)
             leftHandOutput.innerHTML = resultSymbol + " " +
-                Math.round(parseFloat(results.gestures[0][0].score) * 100) +
+                leftConfidence +
                 "%";
             checkGesture(resultSymbol, true);
             rightCounter = 0;
+            leftConfidenceBar.style.background = "linear-gradient(to right, #007f8b " + leftConfidence + "%, #007f8b80 " + leftConfidence + "%)";
+            rightConfidenceBar.style.background = "#7f8b0080";          
         }
         if (results.handednesses[0][0].categoryName == "Left") {
+          rightConfidence = Math.round(parseFloat(results.gestures[0][0].score) * 100)
             rightHandOutput.innerHTML =
                 resultSymbol + " " +
-                Math.round(parseFloat(results.gestures[0][0].score) * 100) +
+                rightConfidence +
                 "%";
             checkGesture(resultSymbol, false);
             leftCounter = 0;
+            leftConfidenceBar.style.background = "#007f8b80";
+            rightConfidenceBar.style.background = "linear-gradient(to right, #7f8b00 " + rightConfidence + "%, #7f8b0080 " + rightConfidence + "%)";    
         }
     }
 
@@ -263,6 +298,8 @@ async function predictWebcam() {
         leftHandOutput.innerHTML = leftResultSymbol + " " + leftConfidence + " %";
         checkGesture(leftResultSymbol, true);
         checkGesture(rightResultSymbol, false);
+        leftConfidenceBar.style.background = "linear-gradient(to right, #007f8b " + leftConfidence + "%, #007f8b80 " + leftConfidence + "%)";
+        rightConfidenceBar.style.background = "linear-gradient(to right, #7f8b00 " + rightConfidence + "%, #7f8b0080 " + rightConfidence + "%)";    
     }
 
     leftCounterEl.innerHTML = leftCounter;
@@ -296,6 +333,9 @@ function checkGesture(gesture, left) {
                     activeCounter = 1;
                     leftHistory.push(gesture);
                     leftHistoryEl.innerHTML = leftHistoryEl.innerHTML + leftGesture;
+                    leftConfirmed.innerHTML = leftGesture;
+                    leftConfirmed.style.background = '#007f8b';
+                    rightConfirmed.style.background = '#7f8b0080';
                 }
             }
             // If Right Gesture
@@ -310,8 +350,12 @@ function checkGesture(gesture, left) {
                     if(activeCounter == 0){
                         playSound(soundPathRight)
                     } else{
+                        rightConfirmed.innerHTML = rightGesture;
+                        rightConfirmed.style.background = '#7f8b00';
+                      
                         playSound(soundPathSuccess)
                         activeCounter = 0;
+                        delayCounter = 1;
                         gesturesToCommand()
                     }
                     rightHistory.push(gesture);
@@ -461,7 +505,13 @@ function configShortcuts(event) {
     let rightID = gestureMap.indexOf(rightGesture);
     console.log(leftID);
     console.log(rightID);
-    execute(shortcutArray[leftID][rightID][1]);
+    if (shortcutArray[leftID][rightID] != null){
+      execute(shortcutArray[leftID][rightID][1]);
+    } else{
+      let leftGesture = gestureMap[leftID];
+      let rightGesture = gestureMap[rightID];
+      showMessage("Kein Befehl für " + leftGesture + " / " + rightGesture + " hinterlegt!")
+    }
   }
 
   //Get gestures and config shortcut
@@ -503,4 +553,11 @@ window.onclick = function(event) {
       editPopup.style.display = "none";
       outputContainer1.appendChild(outputContent)
     }
+}
+
+function showMessage(str){
+  var snackBar = document.getElementById("snackbar");
+  snackBar.innerHTML = str;  
+  snackBar.className = "show";
+  setTimeout(function(){ snackBar.className = snackBar.className.replace("show", ""); }, 3000);
 }
