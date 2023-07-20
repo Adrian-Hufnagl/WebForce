@@ -379,9 +379,9 @@ function checkGesture(gesture, left) {
                         activeCounter = 0;
                         delayCounter = 1;
                         if(!editingActive){
-                        gesturesToCommand()
+                          gesturesToCommand()
                         } else{
-                            configNewGesture();
+                          configNewGesture();
                         }
                     }
                     rightHistory.push(gesture);
@@ -496,7 +496,8 @@ function configShortcuts(event) {
 
   function execute(cmdID) {
     console.log("shortcuts run " + cmdID);
-    execSync("shortcuts run " + cmdID);
+    setTimeout(function(){ execSync("shortcuts run " + cmdID); }, 100);
+    
   }
   
   function configGesture(e) {
