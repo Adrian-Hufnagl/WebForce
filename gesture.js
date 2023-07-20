@@ -202,13 +202,25 @@ async function predictWebcam() {
           const handedness = results.landmarks[i].label;
           console.log(results.landmarks[i])
           let lineColor, pointColor;
-                if (i < 1) {
-                  lineColor = '#7f8b0080';  
-                  pointColor = '#007f008b'; 
-              } else {
-                lineColor = '#007f8b80';  
-                pointColor = '#007f8b'; 
-              } 
+          if(results.handednesses[0][0].categoryName == "Right"){
+            if (i < 1) {
+              lineColor = '#007f8b80';  
+              pointColor = '#007f8b';  
+            } else {
+              lineColor = '#7f8b0080';  
+              pointColor = '#007f008b';
+            } 
+          } else{
+            if (i < 1) {
+              lineColor = '#7f8b0080';  
+              pointColor = '#007f008b'; 
+            } else {
+              lineColor = '#007f8b80';  
+              pointColor = '#007f8b';  
+            } 
+            
+          }
+              
             drawConnectors(canvasCtx, results.landmarks[i], HAND_CONNECTIONS, {
                 color: lineColor,
                 lineWidth: 20
