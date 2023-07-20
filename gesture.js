@@ -440,12 +440,10 @@ function configShortcuts(event) {
   }
   
   function buildShortcutList() {
+    shortCuts.innerHTML = "";
     for (let i = 0; i < 7; i++) {
       for (let j = 0; j < 7; j++) {
         if (shortcutArray[i][j] != null) {
-          console.log("generateListElement mit:");
-          console.log(i);
-          console.log(j);
           generateListElement(i, j)
         }
       }
@@ -547,17 +545,20 @@ function configShortcuts(event) {
   //TODO Take Index of Shortcut Array from Gesture
   //Mach erstmal ein Konzept wie Datending funktionieren soll
   function configNewGesture(){
-    //let oldleftID = gestureMap.indexOf(leftGesture);
-    //let oldrightID = gestureMap.indexOf(rightGesture);
-    let newLeftID  = gestureMap.indexOf(leftGesture);
+    let oldLeftId  = findCMD(true);
+    let oldRightId = findCMD(false);
+    let newLeftID = gestureMap.indexOf(leftGesture);
     let newRightID = gestureMap.indexOf(rightGesture);
-    let gesture = shortcutArray[leftID][rightID];
-    shortcutArray[leftID][rightID] = null;
-    console.log(gesture);
-    //find CMD ist unsinn
-    console.log(findCMD(true));
-    console.log(findCMD(false));
+    console.log("Old IDs: " + oldLeftId + "/" + oldRightId);
+    console.log("New IDs: " + newLeftID + "/" + newRightID);
 
+    // 1. Save shortcut
+    let gestureData = shortcutArray[oldLeftId][oldRightId];
+    // 2. New Shortcut on old position
+    shortcutArray[oldLeftId][oldRightId] = shortcutArray[newLeftID][newRightID];
+    // 3. Old Shortcut Data on new position
+    shortcutArray[newLeftID][newRightID] = gestureData;
+    buildShortcutList();
   }
 
 
