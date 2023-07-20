@@ -198,13 +198,23 @@ async function predictWebcam() {
     canvasElement.style.width = videoWidth;
     webcamElement.style.width = videoWidth;
     if (results.landmarks) {
-        for (const landmarks of results.landmarks) {
-            drawConnectors(canvasCtx, landmarks, HAND_CONNECTIONS, {
-                color: "#aabbcc",
-                lineWidth: 5
+        for (let i = 0; i < results.landmarks.length; i++) {
+          const handedness = results.landmarks[i].label;
+          console.log(results.landmarks[i])
+          let lineColor, pointColor;
+                if (i < 1) {
+                  lineColor = '#7f8b0080';  
+                  pointColor = '#007f008b'; 
+              } else {
+                lineColor = '#007f8b80';  
+                pointColor = '#007f8b'; 
+              } 
+            drawConnectors(canvasCtx, results.landmarks[i], HAND_CONNECTIONS, {
+                color: lineColor,
+                lineWidth: 20
             });
-            drawLandmarks(canvasCtx, landmarks, { color: "#667788", lineWidth: 10 });
-        }
+            drawLandmarks(canvasCtx, results.landmarks[i], { color: pointColor, lineWidth: 10 });
+        }      
     }
     canvasCtx.restore();
     leftHandOutput.style.display = "block";
