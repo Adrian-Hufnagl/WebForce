@@ -256,7 +256,7 @@ async function predictWebcam() {
         }
     }
     if(delayCounter > 0){
-        if (delayCounter <= delayDuration){
+        if (delayCounter >= delayDuration){
             delayCounter = 0;
             leftConfirmed.innerHTML = "";
             rightConfirmed.innerHTML = "";
@@ -569,7 +569,7 @@ function configShortcuts(event) {
 
 
 confirmButton.onclick = function() {
-  configNewGesture();
+  popEditing();
 }
 
 popupButton.onclick = function() {
@@ -581,12 +581,16 @@ window.onclick = function(event) {
       tutorialPopup.style.display = "none";
     }
     if (event.target == editPopup) {
-      editingActive = false;
-      delayDuration = 60;
-      editPopup.style.display = "none";
-      outputContainer1.appendChild(outputContent)
-      webcamContent.appendChild(liveView)
+      popEditing();
     }
+}
+
+function popEditing(){
+  editingActive = false;
+  delayDuration = 60;
+  editPopup.style.display = "none";
+  outputContainer1.appendChild(outputContent)
+  webcamContent.appendChild(liveView)
 }
 
 function showMessage(str){
