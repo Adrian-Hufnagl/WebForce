@@ -47,6 +47,10 @@ ul {
     justify-content: end;
 }
 
+#output-container-2{
+    display: grid;
+}
+
 .gesture-confidence{
     width: 540px;
     color: white;
@@ -131,7 +135,8 @@ ul {
 }
 
 .video-container {
-    position: absolute;
+    position: relative;
+    margin: 0px auto 20px;
     width: 360px;
     height: 270px;
     border-radius: 4px;
@@ -252,7 +257,7 @@ section {
     background-color: #fefefe;
     margin: 60px auto;
     padding: 20px;
-    width: 80%;
+    width: 766px;
     background: white;
     border-radius: 16px;
     box-shadow: 0 6px 12px 0 rgb(0 0 0 / 20%);

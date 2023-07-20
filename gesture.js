@@ -38,6 +38,7 @@ let rightCounterEl = document.getElementById("rightCounter")
 var tutorialPopup = document.getElementById('tutorial-popup');
 var editPopup = document.getElementById('edit-popup');
 var editPopupHeader = document.getElementById('edit-popup-header');
+var editingActive = false;
 var popupButton = document.getElementById('popupButton');
 var confirmButton = document.getElementById('confirm-gest-btn');
 
@@ -125,6 +126,8 @@ const rightConfidenceBar = document.getElementById("gesture-confidence-right");
 const leftConfirmed = document.getElementById("gesture-confirmed-left");
 const rightConfirmed = document.getElementById("gesture-confirmed-right");
 const outputContent = document.getElementById("output-content");
+const webcamContent = document.getElementById("webcam-content");
+const liveView = document.getElementById("liveView");
 const outputContainer1 = document.getElementById("output-container-1");
 const outputContainer2 = document.getElementById("output-container-2");
 
@@ -200,7 +203,6 @@ async function predictWebcam() {
     if (results.landmarks) {
         for (let i = 0; i < results.landmarks.length; i++) {
           const handedness = results.landmarks[i].label;
-          console.log(results.landmarks[i])
           let lineColor, pointColor;
           if(results.handednesses[0][0].categoryName == "Right"){
             if (i < 1) {
@@ -217,8 +219,7 @@ async function predictWebcam() {
             } else {
               lineColor = '#007f8b80';  
               pointColor = '#007f8b';  
-            } 
-            
+            }  
           }
               
             drawConnectors(canvasCtx, results.landmarks[i], HAND_CONNECTIONS, {
@@ -255,7 +256,7 @@ async function predictWebcam() {
         }
     }
     if(delayCounter > 0){
-        if (delayCounter == delayDuration){
+        if (delayCounter <= delayDuration){
             delayCounter = 0;
             leftConfirmed.innerHTML = "";
             rightConfirmed.innerHTML = "";
@@ -374,11 +375,14 @@ function checkGesture(gesture, left) {
                     } else{
                         rightConfirmed.innerHTML = rightGesture;
                         rightConfirmed.style.background = '#7f8b00';
-                      
                         playSound(soundPathSuccess)
                         activeCounter = 0;
                         delayCounter = 1;
+                        if(!editingActive){
                         gesturesToCommand()
+                        } else{
+                            configNewGesture();
+                        }
                     }
                     rightHistory.push(gesture);
                     rightHistoryEl.innerHTML = rightHistoryEl.innerHTML + rightGesture;
@@ -503,7 +507,10 @@ function configShortcuts(event) {
     console.log(e.childNodes[1].innerHTML)
     currentGestureName = e.childNodes[1].innerHTML
     if(webcamRunning){
+      editingActive = true;
+      delayDuration = 180;
       editPopup.style.display = "block";
+      outputContainer2.appendChild(liveView)
       outputContainer2.appendChild(outputContent)
       editPopupHeader.innerHTML = currentGestureName + ": Neues Gestenpaar zuordnen";
     } else{
@@ -572,8 +579,11 @@ window.onclick = function(event) {
       tutorialPopup.style.display = "none";
     }
     if (event.target == editPopup) {
+      editingActive = false;
+      delayDuration = 60;
       editPopup.style.display = "none";
       outputContainer1.appendChild(outputContent)
+      webcamContent.appendChild(liveView)
     }
 }
 
