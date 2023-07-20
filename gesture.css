@@ -10,6 +10,13 @@ ul {
     -moz-columns: 2;
   }
 
+  .columns{
+    font-size: 14px; 
+    font-weight: bold; 
+    padding: 0;
+    margin: 0;
+  }
+
 .detectOnClick {
     position: relative;
     float: left;
@@ -112,6 +119,7 @@ ul {
     background: #3f7f8b;
     width: 250px;
     height: 50px;
+    margin: 0;
 }
 
 .default-btn:hover {
@@ -160,11 +168,6 @@ ul {
 
 #confirm-gest-btn{
     background: #3f7f8b;
-    padding: 10px;
-}
-
-#new-gest-btn{
-    background: #adb6bd;
     padding: 10px;
 }
 
@@ -229,7 +232,7 @@ section {
     font-size: 22px;
     margin: 10px 4px;
     border: none;
-    padding: 0px 13px;
+    padding: 0px 10px;
     color: black;
     cursor: pointer;
     background: white;

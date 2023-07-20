@@ -1,6 +1,7 @@
 {
   "type": "commonjs",
-  "name": "Mac Gestensteuerung",
+  "name": "macforce",
+  "productName": "Mac Gestensteuerung",
   "version": "1.0.0",
   "description": "MediaPipe Gesture Commands",
   "main": "main.js",
