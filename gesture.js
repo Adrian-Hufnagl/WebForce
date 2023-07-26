@@ -150,7 +150,7 @@ function enableCam(event) {
     if(!initialized){
       initialized = true;
       configShortcuts();
-      showMessage("Shortcuts geladen");
+      showMessage("Kurzbefehle geladen");
     }
     if (!gestureRecognizer) {
         alert("Please wait for gestureRecognizer to load");
@@ -434,8 +434,10 @@ function configShortcuts(event) {
         console.log("[7]x[7] Array mit null o. 2 Strings");
         console.log(shortcutArray);
       }
+      if(shortcutArray[0][0] == null){
+          showMessage("Es müssen zuerst Kurzbefehle in der gleichnamigen MacOS-App angelegt werden.")
+      }
       buildShortcutList();
-  
     });
   }
   
